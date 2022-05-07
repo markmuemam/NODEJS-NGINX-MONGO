@@ -1,0 +1,39 @@
+
+1. Install NGINX and setup:
+
+
+sudo amazon-linux-extras list | grep nginx
+sudo amazon-linux-extras enable nginx1
+sudo yum clean metadata
+sudo yum -y install nginx
+nginx -v #to ensure that nginx is installed
+
+2. Start the NGINX service:
+
+sudo systemctl start nginx
+
+Ensure that on hitting the publuc URL of the instance you get:
+
+3. Move to nginx folder:
+cd /etc/nginx
+sudo vim nginx.conf
+
+4. Modifications in nginx.conf inside services{...}:
+location / {
+                proxy_set_header  X-Real-IP  $remote_addr;
+                proxy_set_header  Host       $http_host;
+                proxy_pass        http://127.0.0.1:3000;
+        }
+
+5. Restart the NGINX service:
+
+sudo systemctl restart nginx
+
+Now re-run the Node.js application and you will see the output of application on: publicDNS , this time without port number.
+
+
+6. To allow the applications alive forever use PM2
+
+npm i -g pm2
+pm2 start index.js
+pm2 save

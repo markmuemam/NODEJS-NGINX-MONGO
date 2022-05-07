@@ -1,0 +1,33 @@
+1. Node.js setup ==>
+
+Download nvm and node:
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
+nvm install node
+node -v
+
+
+2. Create a basic Node.js application ==>
+mkdir test
+cd test
+npm init
+npm install express
+touch index.js
+
+3. vim index.js
+
+const express = require('express')
+const app = express()
+
+app.get('/', (req, res) => {
+  res.send('Hello! It is running')
+})
+
+app.listen(3000, () => console.log('Server running on port 3000'))
+
+4. Now run:
+node index.js
+
+5. Edit Inbound traffic ==> Security -> Security Groups -> Edit Inbound rules
+
+You will now get see your output at Public IPv4 DNS of the EC2 instance: publicDNS:3000
+
